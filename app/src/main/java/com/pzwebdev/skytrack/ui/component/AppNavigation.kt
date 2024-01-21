@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.pzwebdev.skytrack.ui.screen.FlightDetailsScreen
 import com.pzwebdev.skytrack.ui.screen.FlightViewScreen
 import com.pzwebdev.skytrack.viewModel.FlightDataViewModel
 
@@ -13,6 +14,9 @@ fun AppNavigation(flightDataViewModel: FlightDataViewModel) {
 
     NavHost(navController = navController, startDestination = "flightViewScreen") {
         composable("flightViewScreen") { FlightViewScreen(navController, flightDataViewModel) }
-//        composable("mapScreen") { MapScreen(navController) }
+        composable("flightDetailsScreen/{id}") { backStackEntry ->
+            val markerId = backStackEntry.arguments?.getString("id")
+            FlightDetailsScreen(markerId)
+        }
     }
 }
