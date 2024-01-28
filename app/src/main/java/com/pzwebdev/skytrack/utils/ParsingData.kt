@@ -136,4 +136,68 @@ object ParsingUtils {
             karmaObject.optBoolean("is_regular")
         )
     }
+
+    fun parseFlightDetails(response: String): FlightDataDetails? {
+        return try {
+            val jsonObject = JSONObject(response)
+                val responseData = parseFlightDataList(jsonObject.getJSONArray("response"))
+
+            parseResponseFlightDetails(responseData)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    private fun parseResponseFlightDetails(jsonObject: JSONObject): FlightDataDetails? {
+        return FlightDataDetails(
+            hex = jsonObject.optString("hex", ""),
+            regNumber = jsonObject.optString("reg_number", ""),
+            aircraftIcao = jsonObject.optString("aircraft_icao", ""),
+            flag = jsonObject.optString("flag", ""),
+            lat = jsonObject.optDouble("lat", 0.0),
+            lng = jsonObject.optDouble("lng", 0.0),
+            alt = jsonObject.optInt("alt", 0),
+            dir = jsonObject.optInt("dir", 0),
+            speed = jsonObject.optInt("speed", 0),
+            vSpeed = jsonObject.optInt("v_speed", 0),
+            squawk = jsonObject.optString("squawk", ""),
+            airlineIcao = jsonObject.optString("airline_icao", ""),
+            airlineIata = jsonObject.optString("airline_iata", ""),
+            flightNumber = jsonObject.optString("flight_number", ""),
+            flightIcao = jsonObject.optString("flight_icao", ""),
+            flightIata = jsonObject.optString("flight_iata", ""),
+            csAirlineIata = jsonObject.optString("cs_airline_iata", null),
+            csFlightNumber = jsonObject.optString("cs_flight_number", null),
+            csFlightIata = jsonObject.optString("cs_flight_iata", null),
+            depIcao = jsonObject.optString("dep_icao", ""),
+            depIata = jsonObject.optString("dep_iata", ""),
+            depTerminal = jsonObject.optString("dep_terminal", null),
+            depGate = jsonObject.optString("dep_gate", ""),
+            depTime = jsonObject.optString("dep_time", ""),
+            depTimeTs = jsonObject.optLong("dep_time_ts", 0),
+            depTimeUtc = jsonObject.optString("dep_time_utc", ""),
+            arrIcao = jsonObject.optString("arr_icao", ""),
+            arrIata = jsonObject.optString("arr_iata", ""),
+            arrTerminal = jsonObject.optString("arr_terminal", null),
+            arrGate = jsonObject.optString("arr_gate", ""),
+            arrBaggage = jsonObject.optString("arr_baggage", ""),
+            arrTime = jsonObject.optString("arr_time", ""),
+            arrTimeTs = jsonObject.optLong("arr_time_ts", 0),
+            arrTimeUtc = jsonObject.optString("arr_time_utc", ""),
+            duration = jsonObject.optInt("duration", 0),
+            delayed = jsonObject.optBoolean("delayed"),
+            depDelayed = jsonObject.optBoolean("dep_delayed"),
+            arrDelayed = jsonObject.optBoolean("arr_delayed"),
+            updated = jsonObject.optLong("updated", 0),
+            status = jsonObject.optString("status", ""),
+            age = jsonObject.optInt("age", 0),
+            built = jsonObject.optInt("built", 0),
+            engine = jsonObject.optString("engine", ""),
+            engineCount = jsonObject.optString("engine_count", ""),
+            model = jsonObject.optString("model", ""),
+            manufacturer = jsonObject.optString("manufacturer", ""),
+            msn = jsonObject.optString("msn", ""),
+            type = jsonObject.optString("type", "")
+        )
+    }
 }

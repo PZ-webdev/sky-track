@@ -14,13 +14,13 @@ class MainActivity : ComponentActivity() {
     private val flightDataViewModel = FlightDataViewModel()
     private val flightDataService = FlightDataService(flightDataViewModel)
 
-    private val handler = Handler(Looper.getMainLooper())
-    private val fetchDataRunnable = object : Runnable {
-        override fun run() {
-            flightDataService.fetchDataInBackground()
-            handler.postDelayed(this, 5000) // Starts every 5 seconds
-        }
-    }
+//    private val handler = Handler(Looper.getMainLooper())
+//    private val fetchDataRunnable = object : Runnable {
+//        override fun run() {
+//            flightDataService.fetchDataInBackground()
+//            handler.postDelayed(this, 5000) // Starts every 5 seconds
+//        }
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,12 +35,12 @@ class MainActivity : ComponentActivity() {
         flightDataService.fetchDataInBackground()
 
         // Run fetchDataInBackground every 5 seconds
-        handler.postDelayed(fetchDataRunnable, 5000)
+//        handler.postDelayed(fetchDataRunnable, 5000)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         // Stop execution of fetchDataInBackground when activity is destroyed
-        handler.removeCallbacks(fetchDataRunnable)
+//        handler.removeCallbacks(fetchDataRunnable)
     }
 }
