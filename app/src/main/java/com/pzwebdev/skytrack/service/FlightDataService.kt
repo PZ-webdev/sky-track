@@ -14,10 +14,11 @@ class FlightDataService(private val flightDataViewModel: FlightDataViewModel) {
     private val flightDataClient = FlightDataClient()
     private val openSkyApiUrl = "https://airlabs.co/api/v9"
     private val API_KEY = "4e870477-5854-4c68-b255-36c50e29df21"
+    private val ZOOM_VALUE = 3
 
     @OptIn(DelicateCoroutinesApi::class)
     fun fetchDataInBackground() {
-        val URL = "$openSkyApiUrl/flights?api_key=$API_KEY"
+        val URL = "$openSkyApiUrl/flights?zoom=$ZOOM_VALUE&api_key=$API_KEY"
         Log.i("[AIRLAB API]", "URL: $URL")
 
         GlobalScope.launch(Dispatchers.IO) {
@@ -45,15 +46,14 @@ class FlightDataService(private val flightDataViewModel: FlightDataViewModel) {
         GlobalScope.launch(Dispatchers.IO) {
             try {
                 val response = flightDataClient.fetchData(URL)
-                Log.d("[AIRLAB API]", "Response Details: $response")
+                val responseData = ParsingUtils.parseFlightDetails(response)
+                Log.d("[AIRLAB API]", "Response Details: ${responseData}")
 
-                val responseData = ParsingUtils.parseFlightDetails(response) // TODO
-
-//                responseData?.response?.let { flightDataList ->
-//                    withContext(Dispatchers.Main) {
-//                        flightDataViewModel.setFlightDataDetails(flightDataList)
-//                    }
-//                }
+                responseData?.let { flightData ->
+                    withContext(Dispatchers.Main) {
+                        flightDataViewModel.setFlightDataDetails(flightData)
+                    }
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }

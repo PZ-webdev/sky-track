@@ -29,6 +29,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.pzwebdev.skytrack.R
+import com.pzwebdev.skytrack.utils.FlightDataDetails
 import com.pzwebdev.skytrack.viewModel.FlightDataViewModel
 
 @Composable
@@ -37,7 +38,7 @@ fun FlightDetailsScreen(
     flightDataViewModel: FlightDataViewModel,
     flightIata: String?
 ) {
-    val flightDataList by flightDataViewModel.flightDataList.observeAsState(emptyList())
+    val flightData: FlightDataDetails? = flightDataViewModel.flightDataDetails.value
 
     Surface(
         modifier = Modifier
@@ -60,7 +61,12 @@ fun FlightDetailsScreen(
                 IconButton(onClick = { navController.navigateUp() }) {
                     Icon(Icons.Filled.ArrowBack, contentDescription = null)
                 }
-                Text(text = "Details", style = MaterialTheme.typography.bodyMedium)
+                flightData?.let {
+                    Text(
+                        text = it.flightIcao,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
             }
 
             Image(
@@ -74,20 +80,27 @@ fun FlightDetailsScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Tabela z przykładowymi danymi
-            LazyColumn {
-                items(5) { index ->
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(8.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Text("Column $index", modifier = Modifier.weight(1f))
-                        Text("Value ${index + 1}", modifier = Modifier.weight(1f))
-                    }
-                }
+            flightData?.let {
+                FlightInfoRow("Aircraft Name", it.model)
+                FlightInfoRow("Registration", it.regNumber)
+                FlightInfoRow("Flight Number", "${it.flightIcao} (${it.flightIata})")
+                FlightInfoRow("Airline", "${it.airlineIcao} (${it.airlineIata})")
+                FlightInfoRow("Departure", it.depTime)
+                FlightInfoRow("Arrival", it.arrTime)
             }
         }
+    }
+}
+
+@Composable
+fun FlightInfoRow(label: String, value: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(label, modifier = Modifier.weight(1f))
+        Text(value, modifier = Modifier.weight(1f))
     }
 }

@@ -140,9 +140,8 @@ object ParsingUtils {
     fun parseFlightDetails(response: String): FlightDataDetails? {
         return try {
             val jsonObject = JSONObject(response)
-                val responseData = parseFlightDataList(jsonObject.getJSONArray("response"))
 
-            parseResponseFlightDetails(responseData)
+            return parseResponseFlightDetails(jsonObject.getJSONObject("response"))
         } catch (e: Exception) {
             null
         }
