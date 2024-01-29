@@ -13,10 +13,13 @@ fun AppNavigation(flightDataViewModel: FlightDataViewModel) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "flightViewScreen") {
+        // Main screen
         composable("flightViewScreen") { FlightViewScreen(navController, flightDataViewModel) }
+
+        // Flight Details
         composable("flightDetailsScreen/{id}") { backStackEntry ->
             val markerId = backStackEntry.arguments?.getString("id")
-            FlightDetailsScreen(markerId)
+            FlightDetailsScreen(navController, flightDataViewModel, markerId)
         }
     }
 }

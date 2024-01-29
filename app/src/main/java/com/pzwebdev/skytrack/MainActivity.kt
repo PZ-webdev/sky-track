@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
         // Running fetchDataInBackground for the first time
         flightDataService.fetchDataInBackground()
 
-        // Run fetchDataInBackground every 5 seconds
+//         Run fetchDataInBackground every 5 seconds
         handler.postDelayed(fetchDataRunnable, 5000)
     }
 

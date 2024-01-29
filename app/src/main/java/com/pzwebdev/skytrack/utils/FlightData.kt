@@ -67,8 +67,8 @@ data class ClientData(
     val ip: String?,
     val geo: GeoData?,
     val connection: ConnectionData?,
-    val device: Any?, // Możesz dostosować typ do rzeczywistych danych o urządzeniu
-    val agent: Any?,  // Możesz dostosować typ do rzeczywistych danych o agencie
+    val device: Any?,
+    val agent: Any?,
     val karma: KarmaData?
 )
 

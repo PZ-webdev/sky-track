@@ -17,6 +17,7 @@ import com.google.maps.android.compose.MapType
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberCameraPositionState
+import com.pzwebdev.skytrack.service.FlightDataService
 import com.pzwebdev.skytrack.viewModel.FlightDataViewModel
 
 @Composable
@@ -27,7 +28,10 @@ fun FlightViewScreen(
     val uiSettings: MapUiSettings by remember { mutableStateOf(MapUiSettings()) }
     val properties by remember { mutableStateOf(MapProperties(mapType = MapType.NORMAL)) }
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(LatLng(50.0295, 22.0067), 6f)
+        position = CameraPosition.fromLatLngZoom(
+            LatLng(50.0295, 22.0067),
+            6f
+        ) // TODO: get current position
     }
 
     val flightDataList by flightDataViewModel.flightDataList.observeAsState(emptyList())
@@ -39,10 +43,36 @@ fun FlightViewScreen(
         uiSettings = uiSettings,
         cameraPositionState = cameraPositionState
     ) {
-        flightDataList.forEach { flightData ->
-            Marker(position = LatLng(flightData.lat!!, flightData.lng!!)) {
-                // Dostosuj marker, dodaj opcje itp., jeśli to konieczne
+        if (flightDataList.isNotEmpty()) {
+            flightDataList.forEach { flightData ->
+                Marker(
+                    position = LatLng(flightData.lat!!, flightData.lng!!),
+                    title = flightData.flightNumber!!,
+                    onClick = {
+                        // Show flight details screen
+                        getDetails(
+                            flightIata = flightData.flightIata!!,
+                            navController = navController,
+                            flightDataViewModel = flightDataViewModel
+                        )
+
+                        return@Marker false
+                    }
+                )
             }
         }
     }
+}
+
+fun getDetails(
+    flightIata: String,
+    navController: NavController,
+    flightDataViewModel: FlightDataViewModel
+) {
+    val flightDataService = FlightDataService(flightDataViewModel)
+
+    flightDataService.getFlightDetails(flightIata)
+
+    Log.d("[DETAILS]", "Flight details of Flight: $flightIata")
+    navController.navigate("flightDetailsScreen/$flightIata")
 }
