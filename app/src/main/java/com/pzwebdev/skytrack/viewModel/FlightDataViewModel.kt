@@ -23,7 +23,7 @@ class FlightDataViewModel : ViewModel() {
     }
 
     fun setFlightDataDetails(data: FlightDataDetails) {
-      Log.d("FlightDataViewModel", "setFlightData: $data")
+      Log.d("FlightDataViewModel", "setFlightDataDetails: $data")
         _flightDataDetails.value = data
     }
 
