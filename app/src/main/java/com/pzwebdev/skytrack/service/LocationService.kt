@@ -15,7 +15,7 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
-import com.pzwebdev.skytrack.model.LocationState
+import com.pzwebdev.skytrack.domain.model.LocationState
 import com.pzwebdev.skytrack.viewModel.LocationViewModel
 
 class LocationService : Service() {

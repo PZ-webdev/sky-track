@@ -23,7 +23,7 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.pzwebdev.skytrack.common.PermissionManager
 import com.pzwebdev.skytrack.common.PermissionManagerResultListener
-import com.pzwebdev.skytrack.model.LocationState
+import com.pzwebdev.skytrack.domain.model.LocationState
 import com.pzwebdev.skytrack.service.FlightDataService
 import com.pzwebdev.skytrack.service.LocationService
 import com.pzwebdev.skytrack.ui.component.AppNavigation
