@@ -3,7 +3,7 @@ package com.pzwebdev.skytrack.viewModel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.pzwebdev.skytrack.model.LocationState
+import com.pzwebdev.skytrack.domain.model.LocationState
 
 class LocationViewModel : ViewModel() {
     private val _currentLocation = MutableLiveData<LocationState>()

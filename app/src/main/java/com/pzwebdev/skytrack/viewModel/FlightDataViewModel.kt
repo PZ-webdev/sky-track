@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.pzwebdev.skytrack.utils.FlightData
-import com.pzwebdev.skytrack.utils.FlightDataDetails
+import com.pzwebdev.skytrack.domain.model.FlightData
+import com.pzwebdev.skytrack.domain.model.FlightDataDetails
 
 class FlightDataViewModel : ViewModel() {
     private val _flightDataList = MutableLiveData<List<FlightData>>()

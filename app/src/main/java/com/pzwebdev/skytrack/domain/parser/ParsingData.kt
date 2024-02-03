@@ -1,5 +1,15 @@
-package com.pzwebdev.skytrack.utils
+package com.pzwebdev.skytrack.domain.parser
 
+import com.pzwebdev.skytrack.domain.model.ClientData
+import com.pzwebdev.skytrack.domain.model.ConnectionData
+import com.pzwebdev.skytrack.domain.model.FlightData
+import com.pzwebdev.skytrack.domain.model.FlightDataDetails
+import com.pzwebdev.skytrack.domain.model.GeoData
+import com.pzwebdev.skytrack.domain.model.KarmaData
+import com.pzwebdev.skytrack.domain.model.KeyData
+import com.pzwebdev.skytrack.domain.model.ParamsData
+import com.pzwebdev.skytrack.domain.model.RequestData
+import com.pzwebdev.skytrack.domain.model.ResponseData
 import org.json.JSONArray
 import org.json.JSONObject
 

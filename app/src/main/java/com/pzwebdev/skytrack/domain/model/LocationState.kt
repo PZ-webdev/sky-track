@@ -1,4 +1,4 @@
-package com.pzwebdev.skytrack.model
+package com.pzwebdev.skytrack.domain.model
 
 data class LocationState(
     var latitude: Double = 0.0,

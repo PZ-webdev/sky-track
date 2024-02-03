@@ -1,4 +1,4 @@
-package com.pzwebdev.skytrack.utils
+package com.pzwebdev.skytrack.domain.model
 
 data class FlightData(
     val hex: String?,
